@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Contoh Pengambilan Gambar dari JavaScript</title>
+</head>
+
+<body>
+    <h1>Gambar Dinamis dari JavaScript</h1>
+    <img id="dynamicImage" src="" alt="Gambar Dinamis">
+
+    <script>
+        const puppeteer = require("puppeteer");
+        // Fungsi untuk mendapatkan URL gambar dari JavaScript (contoh: URL dari return fungsi)
+        async function Start() {
+            const browser = await puppeteer.launch({ headless: 'new' });
+            const page = await browser.newPage();
+            await page.goto(
+                "https://www.instagram.com/p/CvHYg1QvRMj/?utm_source=ig_web_copy_link",
+                {
+                    waitUntil: "networkidle2",
+                }
+            );
+
+            const title = await page.evaluate(() =>
+                document.querySelector("meta[property='og:title']").getAttribute("content")
+            );
+            const body = await page.evaluate(() =>
+                document.querySelector("meta[property='og:image']").getAttribute("content")
+            );
+        }
+    </script>
+</body>
+
+</html>
